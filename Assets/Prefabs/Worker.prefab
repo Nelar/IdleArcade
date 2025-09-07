@@ -1,5 +1,61 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2676692348439736468
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3877979067123265186}
+  - component: {fileID: 5749120337436063233}
+  m_Layer: 0
+  m_Name: Inventory
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3877979067123265186
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2676692348439736468}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0.13838685, z: -0.41100037}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1430356702664867362}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!114 &5749120337436063233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2676692348439736468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ec952ae5a31e1b49a7485b2f9d667a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _materialDescriptions:
+  - _type: 0
+    _prefab: {fileID: 3246782855463283759, guid: 8660132cb344237458bd3686e48c2ec5,
+      type: 3}
+  _items: []
+  _inventorySize:
+    _row: 1
+    _column: 1
+    _height: 15
+    _rowOffset: 0
+    _columnOffset: 0
+    _heightOffset: 0.3
 --- !u!1 &4066221949241548908
 GameObject:
   m_ObjectHideFlags: 0
@@ -44,7 +100,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.3
-  m_Speed: 3
+  m_Speed: 6
   m_Acceleration: 36
   avoidancePriority: 50
   m_AngularSpeed: 800
@@ -69,9 +125,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _resource: 0
+  _stoppingDistance: 3
   _workTime: 3
   _unloadTime: 1
   _animator: {fileID: 2411353029946996504}
+  _inventory: {fileID: 5749120337436063233}
   _navMeshAgent: {fileID: 6343606379639962633}
   _idleAnimation: Idle
   _workAnimation: Punching
@@ -141,12 +199,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 580006188132315554, guid: 27c52c1c1cc7f6241ae4f94bbf0c9517,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3877979067123265186}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 27c52c1c1cc7f6241ae4f94bbf0c9517, type: 3}
 --- !u!4 &292708857303778768 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2295380597753006672, guid: 27c52c1c1cc7f6241ae4f94bbf0c9517,
+    type: 3}
+  m_PrefabInstance: {fileID: 2005576664332341120}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1430356702664867362 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 580006188132315554, guid: 27c52c1c1cc7f6241ae4f94bbf0c9517,
     type: 3}
   m_PrefabInstance: {fileID: 2005576664332341120}
   m_PrefabAsset: {fileID: 0}

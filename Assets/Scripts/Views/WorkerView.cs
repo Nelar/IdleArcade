@@ -1,13 +1,16 @@
 using Cysharp.Threading.Tasks;
-using System.Threading;
 using UnityEngine;
 using UnityEngine.AI;
 using Utils;
+using DG.Tweening;
+using TMPro;
 
 namespace IdleArcade.Views
 {
-    public class WorkerView : View
+    public class WorkerView : MonoBehaviour, IWorkerView
     {
+        public Vector3 Position => transform.position;        
+
         [SerializeField]
         private ResourceType _resource;
 
@@ -24,6 +27,9 @@ namespace IdleArcade.Views
         private Animator _animator;
 
         [SerializeField]
+        private InventoryView _inventory;
+
+        [SerializeField]
         private NavMeshAgent _navMeshAgent;
 
         [SerializeField]
@@ -36,11 +42,13 @@ namespace IdleArcade.Views
 
         [SerializeField]
         [AnimationClipPicker]
-        private string _runAnimation;        
+        private string _runAnimation;
+        
 
         private void Awake() 
         {
-            new Worker(ServiceLocator.Instance.Get<Game>(), this, _resource);
+            var worker = new Worker(ServiceLocator.Instance.Get<Game>(), _resource, this, _inventory);
+            _ = worker.Action();
         }
 
         public async UniTask GoTo(Vector3 position)
@@ -54,16 +62,16 @@ namespace IdleArcade.Views
                 _navMeshAgent.ResetPath();
         }
 
-        public async UniTask Work()
+        public void Work()
         {
-            _animator.Play(_workAnimation);
-            await UniTask.WaitForSeconds(_workTime);
+            _animator.Play(_workAnimation);            
+        }        
+
+        public void Unload()
+        {
+            _animator.Play(_idleAnimation);            
         }
 
-        public async UniTask Unload()
-        {
-            _animator.Play(_idleAnimation);
-            await UniTask.WaitForSeconds(_unloadTime);
-        }
+        public void Destroy() => GameObject.Destroy(gameObject);
     }
 }

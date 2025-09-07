@@ -8,9 +8,12 @@ namespace IdleArcade.Views
         [SerializeField]
         private ResourceType _resource;
 
+        [SerializeField]
+        private InventoryView _inventory;
+
         private void Awake()
         {
-            new Storage(ServiceLocator.Instance.Get<Game>(), this, _resource);
+            new Storage(ServiceLocator.Instance.Get<Game>(), this, _inventory, _resource);
         }
     }
 }

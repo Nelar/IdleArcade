@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using IdleArcade.Views;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,16 +10,14 @@ namespace IdleArcade
     {
         public virtual ActorType ActorType { get; protected set; }
         public virtual ResourceType ResourceType { get; protected set; }
-        public bool IsActive { get; protected set; }
+        public bool IsActive { get; protected set; } = true;
 
         protected Game _owner;
-        public View View { get; protected set; }
+        public IView View { get; protected set; }
 
-        public Actor()
-        {            
-        }
+        public Actor() {}
 
-        public Actor(Game owner, View view, ResourceType resource)
+        public Actor(Game owner, IView view, ResourceType resource)
         {
             _owner = owner;
             View = view;
@@ -26,14 +25,29 @@ namespace IdleArcade
 
             _owner.AddActor(this);
         }
-
-        public virtual void Run() { }
-
+        public virtual void Destroy() 
+        {
+            _owner.RemoveActor(this);
+            View.Destroy();
+        }
         protected Actor GetNearest(List<Actor> actors)
         {
-            return actors.Where(o => o != null)
-                .Aggregate((a, b) => Vector3.Distance(View.Position, a.View.Position) <
-                                    Vector3.Distance(View.Position, b.View.Position) ? a : b);
+            Actor nearest = null;
+            float minDistance = Mathf.Infinity;
+
+            foreach (var actor in actors)
+            {
+                if (actor == null) continue;
+
+                float distance = Vector3.Distance(View.Position, actor.View.Position);
+                if (distance < minDistance)
+                {
+                    minDistance = distance;
+                    nearest = actor;
+                }
+            }
+
+            return nearest;
         }
     }
 }

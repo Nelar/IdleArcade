@@ -3,32 +3,35 @@ using IdleArcade.Views;
 
 namespace IdleArcade
 {
-    public class Worker : Actor
-    {
+    public class Worker : Actor, IHaveInventory
+    {        
         public override ResourceType ResourceType { get; protected set; }
-        public override ActorType ActorType => ActorType.Worker;
-
-        private WorkerView _workerView;
+        public override ActorType ActorType => ActorType.Worker;      
+        private IWorkerView _workerView;
 
         private Actor _target;
+        private Inventory _inventory;
 
-        public Worker(Game owner, View view, ResourceType resource) : base()
+        public Worker(Game owner, ResourceType resource, IWorkerView view, InventoryView inventoryView) : base()
         {
+            _inventory = new Inventory(inventoryView, resource);
             _owner = owner;
-            View = view;
             ResourceType = resource;
-            _workerView = view as WorkerView;
+            View = view;
+            _workerView = view;
 
             _owner.AddActor(this);            
         }
 
-        public override async void Run()
+        public Inventory GetInventory() => _inventory;
+
+        public async UniTask Action()
         {
             IsActive = true;
             while (true)
             {
                 if (!await GoToResource()) break;
-                if (!await Work()) break;
+                await Work();
                 if (!await GoToStorage()) break;
                 if (!await Unload()) break;
             }            
@@ -48,17 +51,22 @@ namespace IdleArcade
         private async UniTask<bool> GoToStorage() => await GoTo(ActorType.Storage, ResourceType);
         private async UniTask<bool> GoToResource() => await GoTo(ActorType.Resource, ResourceType);
 
-        private async UniTask<bool> Work()
+        private async UniTask Work()
         {
-            await _workerView.Work();
+            _workerView.Work();
             var resource = _target as Resource;
-            return true;
+            while (!resource.IsEmpty)
+            {
+                var material = await resource.Mine();
+                await _inventory.Add(_target.View.Position, material);
+            }
         }
 
         private async UniTask<bool> Unload()
         {
-            await _workerView.Unload();
+            _workerView.Unload();
             var storage = _target as Storage;
+            await storage.LoadFrom(this);
             return true;
         }
     }

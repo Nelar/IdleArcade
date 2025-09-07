@@ -5,6 +5,8 @@ using Utils;
 
 namespace Utils
 {
+    public interface IService {}
+
     [DefaultExecutionOrder(-1000)]
     public class ServiceLocator : MonoBehaviour
     {
