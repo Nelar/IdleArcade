@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using IdleArcade.Configs;
 using UnityEngine;
 using UnityEngine.AI;
 using Utils;
@@ -7,19 +8,8 @@ namespace IdleArcade.Views
 {
     public class WorkerView : MonoBehaviour, IWorkerView
     {
-        public Vector3 Position => transform.position;        
-
         [SerializeField]
-        private ResourceType _resource;
-
-        [SerializeField]
-        public float _stoppingDistance = 3.0f;
-
-        [SerializeField]
-        public float _workTime = 3.0f;
-
-        [SerializeField]
-        public float _unloadTime = 1.0f;
+        private WorkerConfig _config;
 
         [SerializeField]
         private Animator _animator;
@@ -41,11 +31,13 @@ namespace IdleArcade.Views
         [SerializeField]
         [AnimationClipPicker]
         private string _runAnimation;
-        
+
+        public Vector3 Position => transform.position;
 
         private void Awake() 
         {
-            new Worker(ServiceLocator.Instance.Get<Game>(), _resource, this, _inventory);
+            _navMeshAgent.speed = _config.Speed;
+            new Worker(ServiceLocator.Instance.Get<Game>(), _config, this, _inventory);
         }
 
         public async UniTask GoTo(Vector3 position)
@@ -53,7 +45,7 @@ namespace IdleArcade.Views
             _animator.Play(_runAnimation);
             _navMeshAgent.SetDestination(position);
             
-            await UniTask.WaitWhile(() => _navMeshAgent.isOnNavMesh && _navMeshAgent.remainingDistance > _stoppingDistance);
+            await UniTask.WaitWhile(() => _navMeshAgent.isOnNavMesh && _navMeshAgent.remainingDistance > _config.StoppingDistance);
             
             if (_navMeshAgent.isOnNavMesh)
                 _navMeshAgent.ResetPath();
@@ -71,6 +63,6 @@ namespace IdleArcade.Views
 
         public void Destroy() => GameObject.Destroy(gameObject);
 
-        public bool IsActive => gameObject != null;
+        public bool IsAlive => gameObject != null;
     }
 }

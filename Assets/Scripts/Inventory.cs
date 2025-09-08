@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using IdleArcade.Configs;
 using UnityEngine;
 
 namespace IdleArcade
@@ -6,16 +7,16 @@ namespace IdleArcade
     public class Inventory
     {
         public IInventoryView View { get; private set; }
-        public ResourceType Type { get; private set; }
+        public InventoryConfig Config { get; private set; }
         public int Capacity { get; private set; } = 0;
 
-        public Inventory(IInventoryView view, ResourceType type)
+        public Inventory(IInventoryView view, InventoryConfig config)
         {
             View = view;
-            Type = type;
+            Config = config;
         }
 
-        public async UniTask Add(Vector3 from, Material material)
+        public async UniTask Add(Vector3 from, ResourceItem material)
         {
             await View.Push(from, material);
             Capacity++;

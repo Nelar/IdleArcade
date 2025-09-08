@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using Cysharp.Threading.Tasks;
+using IdleArcade.Configs;
 
 namespace IdleArcade.Views
 {
@@ -21,7 +22,7 @@ namespace IdleArcade.Views
         }
 
         public Vector3 Position => transform.position;        
-        public virtual bool IsActive => gameObject != null;
+        public virtual bool IsAlive => gameObject != null;
 
         [SerializeField]
         private List<MaterialDescription> _materialDescriptions = new List<MaterialDescription>();
@@ -30,15 +31,17 @@ namespace IdleArcade.Views
         private List<IView> _items = new List<IView>();
 
         [SerializeField]
-        private InventorySize _inventorySize;
+        private InventoryConfig _config;
+        
+        public InventoryConfig Config => _config;
 
-        public async UniTask Push(Vector3 from, Material material)
+        public async UniTask Push(Vector3 from, ResourceItem material)
         {
             var prefab = GetPrefabByType(material.Type);
             var instance = Instantiate(prefab, transform);
             instance.transform.position = from;
 
-            var targetPos = _inventorySize.GetPoint(_items.Count);
+            var targetPos = _config.InventorySize.GetPoint(_items.Count);
             await instance.transform.DOLocalJump(targetPos, 1, 1, 0.3f).SetRecyclable().SetAutoKill();
             _ = instance.transform.DOLocalRotate(Vector3.zero, 0.3f).SetRecyclable().SetAutoKill();
 
@@ -57,7 +60,7 @@ namespace IdleArcade.Views
             var instance = another.Pop() as View;
             instance.transform.SetParent(transform);
 
-            var targetPos = _inventorySize.GetPoint(_items.Count);
+            var targetPos = _config.InventorySize.GetPoint(_items.Count);
             await instance.transform.DOLocalJump(targetPos, 1, 1, 0.3f).SetRecyclable().SetAutoKill();
             _ = instance.transform.DOLocalRotate(Vector3.zero, 0.3f).SetRecyclable().SetAutoKill();
             _items.Add(instance);

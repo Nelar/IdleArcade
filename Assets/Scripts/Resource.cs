@@ -1,4 +1,6 @@
 using Cysharp.Threading.Tasks;
+using IdleArcade.Configs;
+using System;
 
 namespace IdleArcade
 {
@@ -6,19 +8,23 @@ namespace IdleArcade
     {        
         public override ActorType ActorType => ActorType.Resource;
 
-        private int _capacity = 3;
+        private ResourceConfig _config;
+
+        private int _capacity = 0;
         public bool IsEmpty =>  _capacity <= 0;
 
-        public Resource(Game owner, IView view, ResourceType resource) : base(owner, view, resource)
+        public Resource(Game owner, IView view, ResourceConfig config) : base(owner, view, config.ResourceType)
         {
+            _config = config;
+            _capacity = config.Capacity;
         }
 
-        public async UniTask<Material> Mine()
+        public async UniTask<ResourceItem> Mine()
         {                                    
             _capacity--;
-            await UniTask.Delay(1000);
+            await UniTask.Delay(TimeSpan.FromSeconds(_config.MineTime));
             if (IsEmpty) Destroy();
-            return new Material(ResourceType, 1);
+            return new ResourceItem(ResourceType, 1);
         }
     }
 }

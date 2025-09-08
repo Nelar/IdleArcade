@@ -48,14 +48,7 @@ MonoBehaviour:
   - _type: 0
     _prefab: {fileID: 3246782855463283759, guid: 8660132cb344237458bd3686e48c2ec5,
       type: 3}
-  _items: []
-  _inventorySize:
-    _row: 1
-    _column: 1
-    _height: 15
-    _rowOffset: 0
-    _columnOffset: 0
-    _heightOffset: 0.3
+  _config: {fileID: 11400000, guid: 99444119ee4f47f4c9edbaf8c76f0bbd, type: 2}
 --- !u!1 &4066221949241548908
 GameObject:
   m_ObjectHideFlags: 0
@@ -124,10 +117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 976e2de2f67016442b5e82f2bc2dd874, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _resource: 0
-  _stoppingDistance: 3
-  _workTime: 3
-  _unloadTime: 1
+  _config: {fileID: 11400000, guid: 0cfa9ffd470f66e4daeee9e7a24ccc25, type: 2}
   _animator: {fileID: 2411353029946996504}
   _inventory: {fileID: 5749120337436063233}
   _navMeshAgent: {fileID: 6343606379639962633}

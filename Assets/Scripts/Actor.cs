@@ -37,7 +37,7 @@ namespace IdleArcade
                 if (actor == null) continue;
                 if (actor.IsActive != active) continue;
 
-                if (!View.IsActive || !actor.View.IsActive) continue;
+                if (!View.IsAlive || !actor.View.IsAlive) continue;
 
                 float distance = Vector3.Distance(View.Position, actor.View.Position);
                 if (distance < minDistance)

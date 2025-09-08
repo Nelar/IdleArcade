@@ -1,5 +1,5 @@
 using Cysharp.Threading.Tasks;
-using IdleArcade.Views;
+using IdleArcade.Configs;
 
 namespace IdleArcade
 {
@@ -12,11 +12,11 @@ namespace IdleArcade
         private Actor _target;
         private Inventory _inventory;
 
-        public Worker(Game owner, ResourceType resource, IWorkerView view, InventoryView inventoryView) : base()
+        public Worker(Game owner, WorkerConfig config, IWorkerView view, IInventoryView inventoryView) : base()
         {
-            _inventory = new Inventory(inventoryView, resource);
+            _inventory = new Inventory(inventoryView, inventoryView.Config);
             _owner = owner;
-            ResourceType = resource;
+            ResourceType = config.ResourceType;
             View = view;
             _workerView = view;
 
@@ -55,7 +55,7 @@ namespace IdleArcade
             {
                 var material = await resource.Mine();
                 
-                if (!_target.View.IsActive) break;
+                if (!_target.View.IsAlive) break;
 
                 await _inventory.Add(_target.View.Position, material);
             }

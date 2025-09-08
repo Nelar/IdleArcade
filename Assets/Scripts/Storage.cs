@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using IdleArcade.Configs;
 
 namespace IdleArcade
 {
@@ -8,9 +9,9 @@ namespace IdleArcade
 
         private Inventory _inventory;
 
-        public Storage(Game owner, IView view, IInventoryView inventoryView, ResourceType resource) : base(owner, view, resource)
+        public Storage(Game owner, IView view, IInventoryView inventoryView, StorageConfig _config) : base(owner, view, _config.ResourceType)
         {
-            _inventory = new Inventory(inventoryView, resource);
+            _inventory = new Inventory(inventoryView, inventoryView.Config);
             IsActive = true;
         }
 

@@ -48,14 +48,7 @@ MonoBehaviour:
   - _type: 0
     _prefab: {fileID: 3246782855463283759, guid: 8660132cb344237458bd3686e48c2ec5,
       type: 3}
-  _items: []
-  _inventorySize:
-    _row: 1
-    _column: 3
-    _height: 15
-    _rowOffset: 0.3
-    _columnOffset: 0.3
-    _heightOffset: 0.3
+  _config: {fileID: 11400000, guid: 76723f2829681664cbb3b498b7c5e6dd, type: 2}
 --- !u!1 &6194827713397113310
 GameObject:
   m_ObjectHideFlags: 0
@@ -122,7 +115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c659829d87b1a2645a32ad3bee798ef1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _resource: 0
+  _config: {fileID: 11400000, guid: 85f96b09114523c4e80e2c6f84db7e75, type: 2}
   _inventory: {fileID: 7201841519516646013}
 --- !u!1 &6499473129583363893
 GameObject:

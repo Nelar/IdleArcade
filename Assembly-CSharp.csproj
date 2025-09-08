@@ -61,12 +61,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Views\ResourceView.cs" />
+    <Compile Include="Assets\Scripts\Configs\StorageConfig.cs" />
     <Compile Include="Assets\Scripts\Utils\ServiceLocator.cs" />
+    <Compile Include="Assets\Scripts\Configs\ResourceConfig.cs" />
     <Compile Include="Assets\Scripts\Utils\AnimationClipPickerAttribute.cs" />
     <Compile Include="Assets\Scripts\Worker.cs" />
     <Compile Include="Assets\Scripts\Views\StorageView.cs" />
     <Compile Include="Assets\Scripts\Storage.cs" />
     <Compile Include="Assets\Scripts\Inventory.cs" />
+    <Compile Include="Assets\Scripts\Configs\WorkerConfig.cs" />
+    <Compile Include="Assets\Scripts\Configs\InventoryConfig.cs" />
     <Compile Include="Assets\Scripts\Game.cs" />
     <Compile Include="Assets\Scripts\Views\View.cs" />
     <Compile Include="Assets\Scripts\Resource.cs" />

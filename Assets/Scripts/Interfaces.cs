@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using IdleArcade.Configs;
 using UnityEngine;
 
 namespace IdleArcade
@@ -7,7 +8,7 @@ namespace IdleArcade
     {
         public Vector3 Position { get; }
 
-        public bool IsActive { get; }
+        public bool IsAlive { get; }
         public void Destroy();
     }
 
@@ -22,7 +23,8 @@ namespace IdleArcade
 
     public interface IInventoryView : IView
     {
-        public UniTask Push(Vector3 from, Material material);
+        public InventoryConfig Config { get; }
+        public UniTask Push(Vector3 from, ResourceItem material);
         public IView Pop();
         public UniTask TransferFrom(IInventoryView another);
     }    

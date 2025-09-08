@@ -18,7 +18,7 @@ namespace IdleArcade
     }
 
     [Serializable]
-    public struct Material
+    public struct ResourceItem
     {
         public ResourceType Type => _type;
         public int Count => _count;
@@ -26,7 +26,7 @@ namespace IdleArcade
         private ResourceType _type;
         private int _count;
 
-        public Material(ResourceType type, int count)
+        public ResourceItem(ResourceType type, int count)
         {
             _type = type;
             _count = count;
