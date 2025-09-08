@@ -74,9 +74,7 @@
     <Compile Include="Assets\Scripts\Actor.cs" />
     <Compile Include="Assets\Scripts\Types.cs" />
     <Compile Include="Assets\Scripts\Views\InventoryView.cs" />
-    <Compile Include="Assets\Scripts\Material.cs" />
     <Compile Include="Assets\Scripts\Interfaces.cs" />
-    <Compile Include="Assets\Scripts\Utils\ObjectPool.cs" />
     <Compile Include="Assets\Scripts\Views\WorkerView.cs" />
   </ItemGroup>
   <ItemGroup>

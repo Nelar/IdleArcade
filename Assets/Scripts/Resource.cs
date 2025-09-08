@@ -6,7 +6,7 @@ namespace IdleArcade
     {        
         public override ActorType ActorType => ActorType.Resource;
 
-        private short _capacity = 3;
+        private int _capacity = 3;
         public bool IsEmpty =>  _capacity <= 0;
 
         public Resource(Game owner, IView view, ResourceType resource) : base(owner, view, resource)
@@ -14,11 +14,9 @@ namespace IdleArcade
         }
 
         public async UniTask<Material> Mine()
-        {                        
-            IsActive = true;
+        {                                    
             _capacity--;
             await UniTask.Delay(1000);
-            IsActive = false;
             if (IsEmpty) Destroy();
             return new Material(ResourceType, 1);
         }

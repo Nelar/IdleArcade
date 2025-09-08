@@ -1,5 +1,4 @@
 using Cysharp.Threading.Tasks;
-using IdleArcade.Views;
 
 namespace IdleArcade
 {
@@ -12,13 +11,10 @@ namespace IdleArcade
         public Storage(Game owner, IView view, IInventoryView inventoryView, ResourceType resource) : base(owner, view, resource)
         {
             _inventory = new Inventory(inventoryView, resource);
+            IsActive = true;
         }
 
-        public async UniTask LoadFrom(Worker worker)
-        {
-            await _inventory.TransferFrom(worker.GetInventory());
-        }
-
+        public async UniTask LoadFrom(Worker worker) => await _inventory.TransferFrom(worker.GetInventory());
         public Inventory GetInventory() => _inventory;
     }
 }

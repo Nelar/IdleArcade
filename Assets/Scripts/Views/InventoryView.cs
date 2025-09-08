@@ -20,8 +20,8 @@ namespace IdleArcade.Views
             public View Prefab => _prefab;
         }
 
-        public Vector3 Position => transform.position;
-        public void Destroy() => GameObject.Destroy(gameObject);        
+        public Vector3 Position => transform.position;        
+        public virtual bool IsActive => gameObject != null;
 
         [SerializeField]
         private List<MaterialDescription> _materialDescriptions = new List<MaterialDescription>();
@@ -64,5 +64,7 @@ namespace IdleArcade.Views
         }
 
         private View GetPrefabByType(ResourceType type) => _materialDescriptions.Find(x => x.Type == type).Prefab;
+
+        public void Destroy() => GameObject.Destroy(gameObject);
     }
 }

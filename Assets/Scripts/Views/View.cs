@@ -1,4 +1,3 @@
-using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace IdleArcade.Views
@@ -6,6 +5,7 @@ namespace IdleArcade.Views
     public class View : MonoBehaviour, IView
     {
         public virtual Vector3 Position => transform.position;
+        public virtual bool IsActive => gameObject != null;
         public virtual void Destroy() => GameObject.Destroy(gameObject);
     }
 }

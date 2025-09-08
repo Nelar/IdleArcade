@@ -1,5 +1,4 @@
 using Cysharp.Threading.Tasks;
-using System;
 using UnityEngine;
 
 namespace IdleArcade
@@ -7,6 +6,8 @@ namespace IdleArcade
     public interface IView
     {
         public Vector3 Position { get; }
+
+        public bool IsActive { get; }
         public void Destroy();
     }
 

@@ -2,8 +2,6 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
 using Utils;
-using DG.Tweening;
-using TMPro;
 
 namespace IdleArcade.Views
 {
@@ -47,8 +45,7 @@ namespace IdleArcade.Views
 
         private void Awake() 
         {
-            var worker = new Worker(ServiceLocator.Instance.Get<Game>(), _resource, this, _inventory);
-            _ = worker.Action();
+            new Worker(ServiceLocator.Instance.Get<Game>(), _resource, this, _inventory);
         }
 
         public async UniTask GoTo(Vector3 position)
@@ -73,5 +70,7 @@ namespace IdleArcade.Views
         }
 
         public void Destroy() => GameObject.Destroy(gameObject);
+
+        public bool IsActive => gameObject != null;
     }
 }

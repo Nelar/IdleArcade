@@ -10,12 +10,15 @@ namespace IdleArcade
         public void AddActor(Actor actor)
         {
             _actors.Add(actor);
+            var slackers = _actors.FindAll(x=>x.ActorType == ActorType.Worker && x.IsActive == false).ConvertAll(x=>x as Worker);
+            slackers.ForEach(x => x.Action());
         }
 
         public void RemoveActor(Actor actor)
         {            
             _actors.Remove(actor);
         }
+
         public List<Actor> GetActorsByTypeAndResource(ActorType actor, ResourceType resource)
             => _actors.FindAll(x => x.ResourceType == resource && x.ActorType == actor);
     }

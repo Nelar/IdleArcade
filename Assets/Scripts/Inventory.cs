@@ -1,5 +1,4 @@
 using Cysharp.Threading.Tasks;
-using IdleArcade.Views;
 using UnityEngine;
 
 namespace IdleArcade
