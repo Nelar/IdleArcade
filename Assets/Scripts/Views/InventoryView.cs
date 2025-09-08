@@ -57,7 +57,9 @@ namespace IdleArcade.Views
 
         public async UniTask TransferFrom(IInventoryView another)
         {            
-            var instance = another.Pop() as View;
+            var instance = another.Pop() as View;            
+            if (!instance.IsAlive) return;
+
             instance.transform.SetParent(transform);
 
             var targetPos = _config.InventorySize.GetPoint(_items.Count);
